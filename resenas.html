@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Reseñas de Clientes | El Sabor de la Abuela (Lorca)</title>
+  <style>
+    :root {
+      --bg: #12100E;
+      --surface: #1C1713;
+      --card: #251F19;
+      --border: #3B3128;
+      --accent-gold: #E5B869;
+      --text: #F7F3EE;
+      --text-muted: #ACA197;
+      --font-display: 'Georgia', serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; padding: 20px 16px 80px; }
+    .container { max-width: 600px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 24px; }
+    .brand-title { font-family: var(--font-display); font-size: 2rem; color: var(--accent-gold); }
+    
+    .rating-summary { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; text-align: center; margin-bottom: 24px; }
+    .big-score { font-family: var(--font-display); font-size: 3rem; font-weight: 700; color: var(--accent-gold); line-height: 1; }
+    .stars { color: #ECC94B; font-size: 1.3rem; margin: 6px 0; }
+    
+    .add-review-box { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 24px; }
+    .form-title { font-size: 1.05rem; font-weight: 700; color: #FFF; margin-bottom: 12px; }
+    .input-field { width: 100%; background: var(--surface); border: 1px solid var(--border); color: #FFF; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 0.88rem; outline: none; }
+    .btn-submit { width: 100%; background: var(--accent-gold); color: #12100E; border: none; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; cursor: pointer; }
+    
+    .review-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+    .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .review-author { font-weight: 700; font-size: 0.92rem; color: #FFF; }
+    .review-dish { font-size: 0.76rem; color: var(--accent-gold); background: rgba(229,184,105,0.12); padding: 2px 8px; border-radius: 8px; }
+    .review-comment { font-size: 0.86rem; color: var(--text-muted); line-height: 1.45; }
+    
+    .back-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--accent-gold); text-decoration: none; font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-btn">‹ Volver a la Carta del Menú</a>
+    
+    <header>
+      <h1 class="brand-title">Opiniones y Reseñas</h1>
+      <p style="color:var(--text-muted); font-size:0.86rem;">El Sabor de la Abuela — Lorca, España</p>
+    </header>
+
+    <div class="rating-summary">
+      <div class="big-score">4.9</div>
+      <div class="stars">★★★★★</div>
+      <div style="font-size:0.82rem; color:var(--text-muted);">Basado en más de 140 reseñas de clientes</div>
+    </div>
+
+    <!-- Formulario para dejar reseña -->
+    <div class="add-review-box">
+      <div class="form-title">✍️ Déjanos tu valoración de hoy</div>
+      <input type="text" id="reviewAuthor" class="input-field" placeholder="Tu nombre (ej: Carlos M.)">
+      <select id="reviewRating" class="input-field">
+        <option value="5">⭐⭐⭐⭐⭐ 5 Estrellas (Excelente)</option>
+        <option value="4">⭐⭐⭐⭐ 4 Estrellas (Muy bueno)</option>
+        <option value="3">⭐⭐⭐ 3 Estrellas (Bueno)</option>
+      </select>
+      <input type="text" id="reviewDish" class="input-field" placeholder="¿Qué plato probaste? (ej: Ceviche de Camarón, Hornado)">
+      <textarea id="reviewComment" class="input-field" rows="3" placeholder="¿Qué te pareció el sabor y el servicio?"></textarea>
+      <button class="btn-submit" onclick="submitReview()">Publicar mi Reseña</button>
+    </div>
+
+    <h3 style="font-family:var(--font-display); font-size:1.2rem; color:#FFF; margin-bottom:12px;">Últimas experiencias en mesa</h3>
+    <div id="reviewsList">
+      <div class="review-card">
+        <div class="review-header">
+          <span class="review-author">María G. (Lorca)</span>
+          <span class="review-dish">Ceviche de Camarón</span>
+        </div>
+        <div style="color:#ECC94B; font-size:0.8rem; margin-bottom:4px;">★★★★★</div>
+        <p class="review-comment">El mejor ceviche ecuatoriano que he probado en Murcia. El caldo cítrico y los chifles crujientes estaban insuperables. ¡Volveremos seguro!</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-header">
+          <span class="review-author">Santiago P.</span>
+          <span class="review-dish">Hornado con Llapingachos</span>
+        </div>
+        <div style="color:#ECC94B; font-size:0.8rem; margin-bottom:4px;">★★★★★</div>
+        <p class="review-comment">El cuero del hornado estaba perfectamente crocante y los llapingachos con agrio me recordaron a la comida de mi abuela en Quito. 10/10.</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-header">
+          <span class="review-author">Elena R.</span>
+          <span class="review-dish">Empanadas de Viento</span>
+        </div>
+        <div style="color:#ECC94B; font-size:0.8rem; margin-bottom:4px;">★★★★★</div>
+        <p class="review-comment">Llegaron infladas, súper calientes y con bastante queso fundido. Pedir directamente desde el móvil por QR fue comodísimo.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function loadReviews() {
+      try {
+        const res = await fetch('/api/resenas');
+        if (res.ok) {
+          const custom = await res.json();
+          if (custom && custom.length > 0) {
+            const list = document.getElementById('reviewsList');
+            const items = custom.map(r => `
+              <div class="review-card">
+                <div class="review-header">
+                  <span class="review-author">${r.author || 'Cliente'}</span>
+                  <span class="review-dish">${r.dish || 'Plato Típico'}</span>
+                </div>
+                <div style="color:#ECC94B; font-size:0.8rem; margin-bottom:4px;">${'★'.repeat(r.rating || 5)}</div>
+                <p class="review-comment">${r.comment}</p>
+              </div>
+            `).join('');
+            list.innerHTML = items + list.innerHTML;
+          }
+        }
+      } catch(e) {}
+    }
+
+    async function submitReview() {
+      const author = document.getElementById('reviewAuthor').value.trim();
+      const rating = parseInt(document.getElementById('reviewRating').value) || 5;
+      const dish = document.getElementById('reviewDish').value.trim();
+      const comment = document.getElementById('reviewComment').value.trim();
+
+      if (!author || !comment) return alert("Por favor escribe tu nombre y un comentario.");
+
+      const payload = { author, rating, dish, comment, fecha: new Date().toLocaleDateString('es-ES') };
+      try {
+        await fetch('/api/resenas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch(e) {}
+
+      alert("¡Gracias por tu reseña! Ya está registrada.");
+      location.reload();
+    }
+
+    loadReviews();
+  </script>
+</body>
+</html>
