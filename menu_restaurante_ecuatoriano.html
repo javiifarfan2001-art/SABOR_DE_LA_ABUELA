@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>El Sabor de la Abuela | Restaurante Ecuatoriano en Lorca</title>
+  <style>
+    :root {
+      --bg-main: #14110E;
+      --bg-surface: #1E1915;
+      --bg-card: #27211C;
+      --bg-card-hover: #322B24;
+      --text-main: #F7F3EE;
+      --text-muted: #ABA096;
+      --text-dim: #756B62;
+      --accent-gold: #E5B869;
+      --accent-gold-hover: #F2C97D;
+      --accent-terracotta: #D85A38;
+      --accent-green: #38A169;
+      --accent-green-bg: rgba(56, 161, 105, 0.15);
+      --border-subtle: #3C332B;
+      --border-accent: #E5B869;
+      --font-display: 'Georgia', 'Playfair Display', serif;
+      --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      padding-bottom: 95px;
+      overflow-x: hidden;
+    }
+
+    /* Top Accent Line (Tricolor Ecuatoriano refinado) */
+    .ecuador-stripe {
+      height: 4px;
+      background: linear-gradient(90deg, #E5B869 0%, #E5B869 50%, #2A5A8C 50%, #2A5A8C 75%, #D85A38 75%, #D85A38 100%);
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Header */
+    header {
+      padding: 22px 0 16px;
+      text-align: center;
+    }
+
+    .brand-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      background: rgba(229, 184, 105, 0.1);
+      border: 1px solid rgba(229, 184, 105, 0.25);
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 2.15rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #FFF;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+
+    .brand-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      max-width: 440px;
+      margin: 0 auto 14px;
+    }
+
+    .table-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 30px;
+      padding: 6px 18px;
+      font-size: 0.88rem;
+    }
+
+    .table-badge {
+      background: var(--accent-gold);
+      color: #12100E;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+    }
+
+    /* Search Box */
+    .search-box {
+      position: relative;
+      margin: 16px 0 12px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 12px 16px 12px 42px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-gold);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Sticky Categories Nav with Touch Swipe & Arrow Controls */
+    .categories-nav-wrapper {
+      position: sticky;
+      top: 4px;
+      background: rgba(20, 17, 14, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 90;
+      padding: 8px 0;
+      margin: 0 -16px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-arrow-btn {
+      background: none;
+      border: none;
+      color: var(--accent-gold);
+      font-size: 1.4rem;
+      padding: 6px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+      user-select: none;
+    }
+
+    .categories-nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding: 4px 6px;
+      scrollbar-width: none;
+      flex: 1;
+    }
+
+    .categories-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-btn {
+      white-space: nowrap;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .cat-btn.active {
+      background: var(--accent-gold);
+      color: #14110E;
+      border-color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    /* Menu Sections */
+    .menu-section {
+      margin-bottom: 28px;
+      scroll-margin-top: 75px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--accent-gold);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border-subtle), transparent);
+    }
+
+    .section-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+
+    /* Dish Cards */
+    .dish-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    }
+
+    .dish-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(229, 184, 105, 0.4);
+    }
+
+    .dish-main-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .dish-name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #FFF;
+      line-height: 1.25;
+      margin-bottom: 3px;
+    }
+
+    .dish-origin {
+      font-size: 0.72rem;
+      color: var(--accent-terracotta);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+
+    .dish-price {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      white-space: nowrap;
+    }
+
+    .dish-desc {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .dish-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .badge-tag {
+      font-size: 0.68rem;
+      padding: 3px 8px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      color: var(--text-muted);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .badge-star {
+      background: rgba(229, 184, 105, 0.15);
+      color: var(--accent-gold);
+      border-color: rgba(229, 184, 105, 0.3);
+      font-weight: 600;
+    }
+
+    .card-footer-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-view-3d {
+      background: rgba(229, 184, 105, 0.12);
+      border: 1px solid rgba(229, 184, 105, 0.35);
+      color: var(--accent-gold);
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-view-3d:hover {
+      background: var(--accent-gold);
+      color: #14110E;
+    }
+
+    .btn-add-cart {
+      background: var(--accent-gold);
+      color: #14110E;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-add-cart:hover {
+      background: var(--accent-gold-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Floating Bottom Comanda Bar */
+    .floating-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(20, 17, 14, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border-subtle);
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+      z-index: 95;
+    }
+
+    .floating-content {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .order-summary {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .order-count {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .order-total {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    .btn-view-order {
+      background: var(--accent-gold);
+      color: #14110E;
+      border: none;
+      padding: 11px 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-view-order:hover {
+      background: var(--accent-gold-hover);
+    }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      border-radius: 24px 24px 0 0;
+      width: 100%;
+      max-width: 640px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 22px 18px 36px;
+      animation: slideUp 0.28s ease-out;
+      position: relative;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-drag {
+      width: 44px;
+      height: 4px;
+      background: var(--border-subtle);
+      border-radius: 4px;
+      margin: 0 auto 14px;
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    /* 3D Dish Interactive Canvas Container */
+    .dish-3d-box {
+      width: 100%;
+      height: 240px;
+      background: radial-gradient(circle at center, #26201B 0%, #16120F 100%);
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      margin: 12px 0 16px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .dish-3d-box:active {
+      cursor: grabbing;
+    }
+
+    .dish-3d-canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .interactive-3d-hint {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.65);
+      color: var(--accent-gold);
+      font-size: 0.72rem;
+      padding: 4px 12px;
+      border-radius: 12px;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(229,184,105,0.3);
+    }
+
+    /* Comanda Modal Sections */
+    .comanda-badge-dispatched {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      color: var(--accent-green);
+      background: var(--accent-green-bg);
+      border: 1px solid rgba(56, 161, 105, 0.3);
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .cart-item-title {
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .btn-qty {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Status Banner */
+    .status-banner {
+      background: rgba(56, 161, 105, 0.15);
+      border: 1px solid var(--accent-green);
+      color: #9AE6B4;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    /* Restaurant Info Section */
+    .info-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 18px;
+      margin-top: 32px;
+      font-size: 0.85rem;
+    }
+
+    .info-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+      margin-bottom: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 0 10px;
+      font-size: 0.76rem;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ecuador-stripe"></div>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <div class="brand-tagline">
+        <span>🇪🇨</span> TRADICIÓN FAMILIAR EN LORCA <span>🇪🇸</span>
+      </div>
+      <h1 class="brand-title">El Sabor de la Abuela</h1>
+      <p class="brand-subtitle">
+        Auténtica cocina ecuatoriana tradicional con recetas de casa, sazón de antaño y platos recién hechos en Lorca.
+      </p>
+
+      <div class="table-indicator">
+        <span>Estás en:</span>
+        <span class="table-badge" id="currentTableLabel">Mesa 12</span>
+        <button onclick="promptChangeTable()" style="background:none; border:none; color:var(--accent-gold); font-size:0.75rem; text-decoration:underline; cursor:pointer; margin-left:4px;">Cambiar</button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar empanadas, ceviche, hornado, jugos..." oninput="filterDishes()">
+      </div>
+    </header>
+
+    <!-- Categories Sliding Bar with touch-drag and arrows -->
+    <div class="categories-nav-wrapper">
+      <button class="nav-arrow-btn" onclick="scrollCatNav(-180)" aria-label="Anterior">‹</button>
+      <div class="categories-nav" id="categoriesNav">
+        <button class="cat-btn active" onclick="selectCategory('all', this)">Todos los Platos</button>
+        <button class="cat-btn" onclick="selectCategory('piqueos', this)">🥟 Piqueos & Entrantes</button>
+        <button class="cat-btn" onclick="selectCategory('ceviches', this)">🍲 Ceviches & Encebollados</button>
+        <button class="cat-btn" onclick="selectCategory('tradicionales', this)">🥘 Platos Típicos</button>
+        <button class="cat-btn" onclick="selectCategory('bebidas', this)">🍹 Bebidas & Coctelería</button>
+        <button class="cat-btn" onclick="selectCategory('postres', this)">🍰 Postres Caseros</button>
+      </div>
+      <button class="nav-arrow-btn" onclick="scrollCatNav(180)" aria-label="Siguiente">›</button>
+    </div>
+
+    <!-- Menu Sections -->
+    <div id="menuContainer">
+
+      <!-- 1. PIQUEOS -->
+      <section class="menu-section" data-cat="piqueos" id="sec-piqueos">
+        <h2 class="section-title">Piqueos & Entrantes</h2>
+        <p class="section-subtitle">Para abrir el apetito y compartir en la mesa.</p>
+
+        <!-- Empanadas de Viento -->
+        <div class="dish-card">
+          <div class="dish-main-row">
+            <div>
+              <div class="dish-name">Empanadas de Viento (3 unidades)</div>
+              <div class="dish-origin">Sierra Andina (Quito)</div>
+            </div>
+            <div class="dish-price">5,80 €</div>
+          </div>
+          <p class="dish-desc">Masa fina inflada y dorada al momento en sartén, rellena de queso fresco fundido y espolvoreada sutilmente con azúcar glas.</p>
+          <div class="dish-tags">
+            <span class="badge-tag badge-star">⭐ Favorito</span>
+            <span class="badge-tag">Queso Fundido</span>
+            <span class="badge-tag">Vegetariano</span>
+          </div>
+          <div class="card-footer-actions">
+            <button class="btn-view-3d" onclick="open3DModal('empanadas-viento')">
+              <span>🔄</span> Ver Plato en 3D
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Empanadas de Viento (3 uds)', 5.80)">
+              + Añadir
+            </button>
+          </div>
+        </div>
+
+        <!-- Bolón Mixto -->
+        <div class="dish-card">
+          <div class="dish-main-row">
+            <div>
+              <div class="dish-name">Bolón Mixto de Verde</div>
+              <div class="dish-origin">Costa Ecuatoriana (Manabí)</div>
+            </div>
+            <div class="dish-price">6,50 €</div>
+          </div>
+          <p class="dish-desc">Esfera crujiente de plátano macho verde majado con manteca de cerdo, queso costeño artesanal y trozos de chicharrón crujiente.</p>
+          <div class="dish-tags">
+            <span class="badge-tag badge-star">⭐ Tradición Costeña</span>
+            <span class="badge-tag">Chicharrón Crocante</span>
+          </div>
+          <div class="card-footer-actions">
+            <button class="btn-view-3d" onclick="open3DModal('bolon-mixto')">
+              <span>🔄</span> Ver Plato en 3D
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Bolón Mixto de Verde', 6.50)">
+              + Añadir
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. CEVICHES -->
+      <section class="menu-section" data-cat="ceviches" id="sec-ceviches">
+        <h2 class="section-title">Ceviches & Encebollados</h2>
+        <p class="section-subtitle">Frescura costera, caldos concentrados y cítricos vivos.</p>
+
+        <!-- Ceviche de Camarón -->
+        <div class="dish-card">
+          <div class="dish-main-row">
+            <div>
+              <div class="dish-name">Ceviche de Camarón Costeño</div>
+              <div class="dish-origin">Esmeraldas & Guayas</div>
+            </div>
+            <div class="dish-price">13,90 €</div>
+          </div>
+          <p class="dish-desc">Langostinos cocidos en su punto en un caldo aromático con zumo de naranja agria, limón, tomate fresco rallado, cebolla morada y cilantro. Acompañado de chifles.</p>
+          <div class="dish-tags">
+            <span class="badge-tag badge-star">⭐ Muy Pedido</span>
+            <span class="badge-tag">Con Chifles</span>
+            <span class="badge-tag">Sin Gluten</span>
+          </div>
+          <div class="card-footer-actions">
+            <button class="btn-view-3d" onclick="open3DModal('ceviche-camaron')">
+              <span>🔄</span> Ver Plato en 3D
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Ceviche de Camarón Costeño', 13.90)">
+              + Añadir
+            </button>
+          </div>
+        </div>
+
+        <!-- Encebollado Mixto -->
+        <div class="dish-card">
+          <div class="dish-main-row">
+            <div>
+              <div class="dish-name">Encebollado Mixto de la Abuela</div>
+              <div class="dish-origin">El Litoral Ecuatoriano</div>
+            </div>
+            <div class="dish-price">14,50 €</div>
+          </div>
+          <p class="dish-desc">El rey de la mesa: fondo concentrado de albacora fresca con langostinos, yuca suave, cebolla morada encurtida con limón y hierbas. Servido con chifles y maíz tostado.</p>
+          <div class="dish-tags">
+            <span class="badge-tag badge-star">⭐ Plato Bandera</span>
+            <span class="badge-tag">Albacora & Camarón</span>
+          </div>
+          <div class="card-footer-actions">
+            <button class="btn-view-3d" onclick="open3DModal('encebollado-mixto')">
+              <span>🔄</span> Ver Plato en 3D
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Encebollado Mixto de la Abuela', 14.50)">
+              + Añadir
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. PLATOS TÍPICOS -->
+      <section class="menu-section" data-cat="tradicionales" id="sec-tradicionales">
+        <h2 class="section-title">Platos Típicos & Fuertes</h2>
+        <p class="section-subtitle">Recetas de cocción lenta heredadas de la abuela.</p>
+
+        <!-- Hornado con Llapingachos -->
+        <div class="dish-card">
+          <div class="dish-main-row">
+            <div>
+              <div class="dish-name">Hornado Pastuso con Llapingachos</div>
+              <div class="dish-origin">Carchi & Sierra Central</div>
+            </div>
+            <div class="dish-price">15,50 €</div>
+          </div>
+          <p class="dish-desc">Pierna de cerdo asada a fuego lento con aliño de chicha y comino con cuero crujiente, tortillas de patata y queso doradas (llapingachos), mote y salsa agria criolla.</p>
+          <div class="dish-tags">
+            <span class="badge-tag badge-star">⭐ Especialidad</span>
+            <span class="badge-tag">Cuero Crocante</span>
+          </div>
+          <div class="card-footer-actions">
+            <button class="btn-view-3d" onclick="open3DModal('hornado-andino')">
+              <span>🔄</span> Ver Plato en 3D
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Hornado con Llapingachos', 15.50)">
+              + Añadir
+            </button>
+          </div>
+        </div>
+
+        <!-- Seco de Chivo -->
+        <div class="dish-card">
+          <div class="dish-main-row">
+            <div>
+              <div class="dish-name">Seco de Chivo Tradicional</div>
+              <div class="dish-origin">Receta Casera de la Abuela</div>
+            </div>
+            <div class="dish-price">16,00 €</div>
+          </div>
+          <p class="dish-desc">Estofado tierno aromatizado con jugo de naranjilla natural, cerveza y hierbas andinas. Servido con arroz amarillo al achiote y plátano maduro frito.</p>
+          <div class="dish-tags">
+            <span class="badge-tag">Cocción Lenta</span>
+            <span class="badge-tag">Plátano Maduro</span>
+          </div>
+          <div class="card-footer-actions">
+            <button class="btn-view-3d" onclick="open3DModal('seco-chivo')">
+              <span>🔄</span> Ver Plato en 3D
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Seco de Chivo Tradicional', 16.00)">
+              + Añadir
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. BEBIDAS -->
+      <section class="menu-section" data-cat="bebidas" id="sec-bebidas">
+        <h2 class="section-title">Bebidas & Coctelería</h2>
+        <p class="section-subtitle">Frutas exóticas naturales y bebidas tradicionales.</p>
+
+        <!-- Jugo Natural -->
+        <div class="dish-card">
+          <div class="dish-main-row">
+            <div>
+              <div class="dish-name">Jugo Natural Tropical (Maracuyá / Naranjilla)</div>
+              <div class="dish-origin">Fruta 100% Natural</div>
+            </div>
+            <div class="dish-price">4,20 €</div>
+          </div>
+          <p class="dish-desc">Batido al instante con pulpa de fruta natural fresca. Elige entre Maracuyá refrescante, Naranjilla amazónica ácida o Mora andina.</p>
+          <div class="dish-tags">
+            <span class="badge-tag badge-star">⭐ Sin Conservantes</span>
+            <span class="badge-tag">Fruta Natural</span>
+          </div>
+          <div class="card-footer-actions">
+            <button class="btn-view-3d" onclick="open3DModal('jugo-natural')">
+              <span>🔄</span> Ver Bebida en 3D
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Jugo Natural de Maracuyá', 4.20)">
+              + Añadir
+            </button>
+          </div>
+        </div>
+
+        <!-- Cerveza Club -->
+        <div class="dish-card">
+          <div class="dish-main-row">
+            <div>
+              <div class="dish-name">Cerveza Club Premium / Pilsener</div>
+              <div class="dish-origin">Importada de Ecuador</div>
+            </div>
+            <div class="dish-price">3,80 €</div>
+          </div>
+          <p class="dish-desc">Botellín bien frío de la cerveza ecuatoriana clásica para acompañar tus ceviches y carnes.</p>
+          <div class="dish-tags">
+            <span class="badge-tag">Muy Fría</span>
+          </div>
+          <div class="card-footer-actions">
+            <button class="btn-view-3d" onclick="open3DModal('cerveza-club')">
+              <span>🔄</span> Ver Botellín en 3D
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Cerveza Club Premium', 3.80)">
+              + Añadir
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. POSTRES -->
+      <section class="menu-section" data-cat="postres" id="sec-postres">
+        <h2 class="section-title">Postres Caseros</h2>
+        <p class="section-subtitle">El dulce final de la abuela.</p>
+
+        <!-- Higos con Queso -->
+        <div class="dish-card">
+          <div class="dish-main-row">
+            <div>
+              <div class="dish-name">Higos con Queso Fresco</div>
+              <div class="dish-origin">Sierra Andina</div>
+            </div>
+            <div class="dish-price">5,50 €</div>
+          </div>
+          <p class="dish-desc">Higos confitados en miel de panela especiada con canela y clavo, acompañados de queso fresco salado artesanal.</p>
+          <div class="dish-tags">
+            <span class="badge-tag badge-star">⭐ Clásico</span>
+            <span class="badge-tag">Casero</span>
+          </div>
+          <div class="card-footer-actions">
+            <button class="btn-view-3d" onclick="open3DModal('higos-queso')">
+              <span>🔄</span> Ver Plato en 3D
+            </button>
+            <button class="btn-add-cart" onclick="addToCart('Higos con Queso Fresco', 5.50)">
+              + Añadir
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Practical Info in Lorca -->
+    <div class="info-section">
+      <div class="info-title">El Sabor de la Abuela — Lorca, España</div>
+      <p style="color:var(--text-muted); margin-bottom:6px;">📍 Calle Mayor / Centro Histórico, Lorca (Región de Murcia)</p>
+      <p style="color:var(--text-muted); margin-bottom:8px;">🕒 Comidas: 13:00 a 16:30 | Cenas: 20:00 a 23:30 (Martes a Domingo)</p>
+      <p style="font-size:0.78rem; color:var(--text-dim); border-top:1px solid var(--border-subtle); padding-top:8px;">
+        💳 El pago se realiza al solicitar la cuenta mediante datáfono / Bizum / código QR de pago en la mesa.
+      </p>
+    </div>
+
+    <footer>
+      <p>© 2026 Restaurante El Sabor de la Abuela (Lorca). Carta Digital Interactiva.</p>
+    </footer>
+
+  </div>
+
+  <!-- Bottom Floating Comanda Bar -->
+  <div class="floating-bar" id="floatingBar">
+    <div class="floating-content">
+      <div class="order-summary" onclick="openComandaModal()">
+        <span class="order-count" id="comandaCountLabel">Comanda vacía</span>
+        <span class="order-total" id="comandaTotalLabel">0,00 €</span>
+      </div>
+      <button class="btn-view-order" onclick="openComandaModal()">
+        <span>Ver Mi Comanda</span>
+        <span id="comandaBadgeCount" style="background:#14110E; color:var(--accent-gold); padding:2px 7px; border-radius:10px; font-size:0.75rem;">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal: 3D / 360 Dish Viewer -->
+  <div class="modal-overlay" id="modal3D" onclick="closeModals()">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-drag"></div>
+      <button class="modal-close" onclick="closeModals()">✕</button>
+      
+      <div id="modal3DHeader">
+        <div style="font-size:0.74rem; color:var(--accent-terracotta); text-transform:uppercase; letter-spacing:1px; font-weight:700;" id="modal3DOrigin">Sierra Andina</div>
+        <h2 style="font-family:var(--font-display); font-size:1.35rem; color:#FFF; margin:2px 0 6px;" id="modal3DTitle">Empanadas de Viento</h2>
+        <div style="font-family:var(--font-display); font-size:1.25rem; color:var(--accent-gold); font-weight:700;" id="modal3DPrice">5,80 €</div>
+      </div>
+
+      <!-- 3D Canvas Box -->
+      <div class="dish-3d-box" id="dish3DContainer">
+        <canvas id="canvas3D" class="dish-3d-canvas" width="400" height="240"></canvas>
+        <div class="interactive-3d-hint">
+          <span>🖐️ Arrastra con el dedo para girar 360°</span>
+        </div>
+      </div>
+
+      <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:14px;" id="modal3DDesc">
+        Presentación servida del plato.
+      </p>
+
+      <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:12px; padding:12px; margin-bottom:16px;">
+        <div style="font-size:0.8rem; font-weight:700; color:var(--accent-gold); margin-bottom:2px;">🌾 Alérgenos (Normativa UE):</div>
+        <div style="font-size:0.82rem; color:var(--text-muted);" id="modal3DAllergens">Gluten, Lácteos.</div>
+      </div>
+
+      <button id="modal3DAddBtn" style="width:100%; background:var(--accent-gold); color:#14110E; border:none; padding:13px; border-radius:14px; font-weight:700; font-size:0.95rem; cursor:pointer;">
+        + Añadir a mi comanda
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal: Comanda & Kitchen Order (Base Central) -->
+  <div class="modal-overlay" id="modalComanda" onclick="closeModals()">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-drag"></div>
+      <button class="modal-close" onclick="closeModals()">✕</button>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+        <h3 style="font-family:var(--font-display); font-size:1.3rem; color:#FFF;">Comanda de <span id="modalTableNumber">Mesa 12</span></h3>
+      </div>
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:14px;">
+        Los pedidos confirmados se envían directamente a la pantalla de cocina.
+      </p>
+
+      <div class="status-banner" id="orderSuccessBanner">
+        ✅ <strong>¡Pedido enviado a cocina!</strong> El equipo ya está marchando tu comanda.
+      </div>
+
+      <!-- Section: Platos ya enviados a cocina (BLOQUEADOS) -->
+      <div id="confirmedSection" style="display:none; margin-bottom:16px; border:1px solid rgba(56, 161, 105, 0.3); border-radius:12px; padding:12px; background:rgba(56, 161, 105, 0.05);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-weight:700; font-size:0.85rem; color:#9AE6B4;">👨‍🍳 Platos registrados en cocina:</span>
+          <span class="comanda-badge-dispatched">🔒 No modificable</span>
+        </div>
+        <div id="confirmedList"></div>
+      </div>
+
+      <!-- Section: Platos Nuevos pendientes de enviar -->
+      <div id="pendingSection">
+        <div style="font-weight:700; font-size:0.85rem; color:var(--accent-gold); margin-bottom:6px;">
+          📋 Platos nuevos por enviar:
+        </div>
+        <div id="pendingList"></div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-top:1px solid var(--border-subtle); margin-top:14px; margin-bottom:16px;">
+        <span style="font-weight:700; font-size:1.05rem;">Total de la Mesa:</span>
+        <span style="font-family:var(--font-display); font-size:1.35rem; font-weight:700; color:var(--accent-gold);" id="comandaTotalExact">0,00 €</span>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button id="btnSendToKitchen" onclick="sendOrderToKitchen()" style="background:var(--accent-gold); color:#14110E; border:none; padding:13px; border-radius:14px; font-weight:700; font-size:0.95rem; cursor:pointer;">
+          📤 Enviar pedido a Cocina
+        </button>
+
+        <button onclick="requestCheck()" style="background:var(--bg-card); border:1px solid var(--border-subtle); color:var(--text-main); padding:12px; border-radius:14px; font-weight:600; font-size:0.88rem; cursor:pointer;">
+          🧾 Pedir la Cuenta a la Mesa
+        </button>
+      </div>
+
+      <p style="font-size:0.75rem; color:var(--text-dim); text-align:center; margin-top:12px;">
+        Puedes pedir bebidas o platos adicionales en cualquier momento durante tu comida.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // State
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentTable = urlParams.get('mesa') ? `Mesa ${urlParams.get('mesa')}` : "Mesa 12";
+
+    // Cart State: pending (editable) and confirmed (locked)
+    let pendingItems = [];
+    let confirmedItems = [];
+
+    document.getElementById('currentTableLabel').innerText = currentTable;
+    document.getElementById('modalTableNumber').innerText = currentTable;
+
+    // Dishes Data for 3D and Details
+    const dishCatalog = {
+      'empanadas-viento': {
+        title: 'Empanadas de Viento (3 unidades)',
+        price: '5,80 €',
+        origin: 'Sierra Andina (Quito)',
+        desc: 'Masa fina inflada y dorada al momento en sartén, rellena de abundante queso fresco fundido y espolvoreada sutilmente con azúcar glas.',
+        allergens: 'Gluten, Lácteos',
+        type: 'empanadas'
+      },
+      'bolon-mixto': {
+        title: 'Bolón Mixto de Verde',
+        price: '6,50 €',
+        origin: 'Costa Ecuatoriana (Manabí)',
+        desc: 'Esfera rústica de plátano verde majado a mano con trozos de chicharrón crocante y queso costeño tierno. Dorado a la perfección.',
+        allergens: 'Lácteos, Sulfitos',
+        type: 'bolon'
+      },
+      'ceviche-camaron': {
+        title: 'Ceviche de Camarón Costeño',
+        price: '13,90 €',
+        origin: 'Esmeraldas & Guayas',
+        desc: 'Langostinos jugosos en caldo aromatizado de naranja agria, limón sutil, tomate natural rallado, cebolla morada y cilantro fresco. Servido con chifles.',
+        allergens: 'Crustáceos',
+        type: 'ceviche'
+      },
+      'encebollado-mixto': {
+        title: 'Encebollado Mixto de la Abuela',
+        price: '14,50 €',
+        origin: 'El Litoral Ecuatoriano',
+        desc: 'Plato nacional: caldo concentrado de albacora fresca con langostinos, yuca suave, curtido de cebolla morada con limón y cilantro. Acompañado de chifles y tostado.',
+        allergens: 'Pescado, Crustáceos',
+        type: 'encebollado'
+      },
+      'hornado-andino': {
+        title: 'Hornado Pastuso con Llapingachos',
+        price: '15,50 €',
+        origin: 'Carchi & Sierra Central',
+        desc: 'Carne de cerdo horneada lentamente por 8 horas con chicha de jora y especias andinas, cuero crocante reventado, llapingachos dorados con queso y salsa agria.',
+        allergens: 'Lácteos',
+        type: 'hornado'
+      },
+      'seco-chivo': {
+        title: 'Seco de Chivo Tradicional',
+        price: '16,00 €',
+        origin: 'Receta Casera de la Abuela',
+        desc: 'Tierno guiso estofado a fuego suave con reducción de naranjilla natural, cerveza y hierbas andinas, arroz amarillo al achiote y maduro frito.',
+        allergens: 'Gluten (por cerveza)',
+        type: 'seco'
+      },
+      'jugo-natural': {
+        title: 'Jugo Natural Tropical (Maracuyá)',
+        price: '4,20 €',
+        origin: 'Fruta 100% Natural',
+        desc: 'Batido fresco al momento con pulpa 100% natural de maracuyá (fruta de la pasión). Sin conservantes ni colorantes.',
+        allergens: 'Ninguno común',
+        type: 'jugo'
+      },
+      'cerveza-club': {
+        title: 'Cerveza Club Premium / Pilsener',
+        price: '3,80 €',
+        origin: 'Guayaquil, Ecuador',
+        desc: 'Botellín bien frío de cerveza rubia ecuatoriana para refrescar el paladar entre platos.',
+        allergens: 'Gluten',
+        type: 'cerveza'
+      },
+      'higos-queso': {
+        title: 'Higos con Queso Fresco',
+        price: '5,50 €',
+        origin: 'Sierra Andina',
+        desc: 'Higos maduros confitados en miel densa de panela pura especiada con canela y clavo, acompañados de queso fresco salado.',
+        allergens: 'Lácteos',
+        type: 'higos'
+      }
+    };
+
+    // Category Filter & Smooth Scrolling Navigation
+    function scrollCatNav(delta) {
+      document.getElementById('categoriesNav').scrollBy({ left: delta, behavior: 'smooth' });
+    }
+
+    function selectCategory(cat, btn) {
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const sections = document.querySelectorAll('.menu-section');
+      sections.forEach(sec => {
+        if (cat === 'all' || sec.dataset.cat === cat) {
+          sec.style.display = 'block';
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+    }
+
+    function filterDishes() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.dish-card');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? 'flex' : 'none';
+      });
+    }
+
+    function promptChangeTable() {
+      const t = prompt("Escribe tu número de mesa:", currentTable.replace('Mesa ', ''));
+      if (t) {
+        currentTable = isNaN(t) ? t : `Mesa ${t}`;
+        document.getElementById('currentTableLabel').innerText = currentTable;
+        document.getElementById('modalTableNumber').innerText = currentTable;
+        // Cargar estado de esa mesa desde el servidor central
+        fetchTableStatus();
+      }
+    }
+
+    // Cart Management
+    function addToCart(title, price) {
+      const existing = pendingItems.find(i => i.title === title);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        pendingItems.push({ title, price, qty: 1 });
+      }
+      updateCartUI();
+    }
+
+    function changePendingQty(idx, delta) {
+      pendingItems[idx].qty += delta;
+      if (pendingItems[idx].qty <= 0) {
+        pendingItems.splice(idx, 1);
+      }
+      updateCartUI();
+      renderComandaModal();
+    }
+
+    function updateCartUI() {
+      const totalPendingQty = pendingItems.reduce((s, i) => s + i.qty, 0);
+      const totalConfirmedQty = confirmedItems.reduce((s, i) => s + i.qty, 0);
+      const grandQty = totalPendingQty + totalConfirmedQty;
+
+      const grandTotal = [...pendingItems, ...confirmedItems].reduce((s, i) => s + (i.price * i.qty), 0);
+
+      const label = grandQty === 0 ? "Comanda vacía" : `${grandQty} ${grandQty === 1 ? 'plato' : 'platos'} en mesa`;
+      document.getElementById('comandaCountLabel').innerText = label;
+      document.getElementById('comandaTotalLabel').innerText = `${grandTotal.toFixed(2).replace('.', ',')} €`;
+      document.getElementById('comandaBadgeCount').innerText = grandQty;
+      document.getElementById('comandaTotalExact').innerText = `${grandTotal.toFixed(2).replace('.', ',')} €`;
+    }
+
+    function openComandaModal() {
+      renderComandaModal();
+      document.getElementById('modalComanda').classList.add('active');
+    }
+
+    function renderComandaModal() {
+      // 1. Confirmed section
+      const confSec = document.getElementById('confirmedSection');
+      const confList = document.getElementById('confirmedList');
+      if (confirmedItems.length > 0) {
+        confSec.style.display = 'block';
+        confList.innerHTML = confirmedItems.map(item => `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; font-size:0.85rem; border-bottom:1px dashed rgba(255,255,255,0.06);">
+            <div>
+              <span style="font-weight:700; color:#9AE6B4;">${item.qty}x</span> ${item.title}
+            </div>
+            <div style="font-weight:700; color:var(--accent-gold);">
+              ${(item.price * item.qty).toFixed(2).replace('.', ',')} €
+            </div>
+          </div>
+        `).join('');
+      } else {
+        confSec.style.display = 'none';
+      }
+
+      // 2. Pending section
+      const pendSec = document.getElementById('pendingSection');
+      const pendList = document.getElementById('pendingList');
+      if (pendingItems.length === 0) {
+        pendList.innerHTML = `
+          <div style="text-align:center; padding:16px 0; color:var(--text-dim); font-size:0.85rem;">
+            ${confirmedItems.length > 0 ? 'No tienes nuevos platos pendientes por enviar.' : 'Aún no has añadido platos a tu comanda.<br>Toca "+ Añadir" en el menú para empezar.'}
+          </div>
+        `;
+        document.getElementById('btnSendToKitchen').style.opacity = confirmedItems.length > 0 ? '0.5' : '1';
+      } else {
+        document.getElementById('btnSendToKitchen').style.opacity = '1';
+        pendList.innerHTML = pendingItems.map((item, idx) => `
+          <div class="cart-item">
+            <div>
+              <div class="cart-item-title">${item.title}</div>
+              <div style="font-size:0.8rem; color:var(--text-muted);">${item.price.toFixed(2).replace('.', ',')} € c/u</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <button class="btn-qty" onclick="changePendingQty(${idx}, -1)">-</button>
+              <span style="font-weight:700; min-width:18px; text-align:center;">${item.qty}</span>
+              <button class="btn-qty" onclick="changePendingQty(${idx}, 1)">+</button>
+              <span style="font-family:var(--font-display); font-weight:700; color:var(--accent-gold); min-width:55px; text-align:right;">
+                ${(item.price * item.qty).toFixed(2).replace('.', ',')} €
+              </span>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Central Server Sync
+    async function sendOrderToKitchen() {
+      if (pendingItems.length === 0) {
+        alert("Añade al menos un plato nuevo a la comanda antes de enviar a cocina.");
+        return;
+      }
+
+      const payload = {
+        mesa: currentTable,
+        items: pendingItems,
+        timestamp: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })
+      };
+
+      try {
+        const res = await fetch('/api/pedido', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          console.log("Pedido guardado en servidor central!");
+        }
+      } catch (e) {
+        console.warn("Servidor local no disponible o modo estático; registrando localmente.");
+      }
+
+      // Mover los platos pendientes a confirmados (bloqueados)
+      pendingItems.forEach(item => {
+        const exist = confirmedItems.find(c => c.title === item.title);
+        if (exist) {
+          exist.qty += item.qty;
+        } else {
+          confirmedItems.push({ ...item });
+        }
+      });
+      pendingItems = [];
+
+      updateCartUI();
+      renderComandaModal();
+
+      const banner = document.getElementById('orderSuccessBanner');
+      banner.style.display = 'block';
+      setTimeout(() => { banner.style.display = 'none'; }, 4000);
+    }
+
+    async function requestCheck() {
+      const grandTotal = [...pendingItems, ...confirmedItems].reduce((s, i) => s + (i.price * i.qty), 0);
+      if (grandTotal === 0) {
+        alert(`No hay consumiciones registradas en ${currentTable}.`);
+        return;
+      }
+
+      try {
+        await fetch('/api/pedir_cuenta', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mesa: currentTable, total: grandTotal })
+        });
+      } catch (e) {}
+
+      alert(`🧾 Cuenta solicitada para ${currentTable}. Importe total: ${grandTotal.toFixed(2).replace('.', ',')} €.\nEnseguida se acercan a la mesa con el datáfono / código de pago.`);
+      closeModals();
+    }
+
+    async function fetchTableStatus() {
+      try {
+        const res = await fetch(`/api/estado_mesa?mesa=${encodeURIComponent(currentTable)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.items) {
+            confirmedItems = data.items;
+            updateCartUI();
+          }
+        }
+      } catch (e) {}
+    }
+
+    // Auto-fetch on load
+    fetchTableStatus();
+
+    function closeModals() {
+      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+    }
+
+    // ==========================================
+    // 3D DISH RENDERER (Pure Interactive HTML5 Canvas 3D)
+    // ==========================================
+    let rotX = 25;
+    let rotY = 45;
+    let isDragging = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+    let current3DDishType = 'empanadas';
+    const canvas = document.getElementById('canvas3D');
+    const ctx = canvas.getContext('2d');
+
+    function open3DModal(id) {
+      const dish = dishCatalog[id];
+      if (!dish) return;
+
+      current3DDishType = dish.type;
+      document.getElementById('modal3DOrigin').innerText = dish.origin;
+      document.getElementById('modal3DTitle').innerText = dish.title;
+      document.getElementById('modal3DPrice').innerText = dish.price;
+      document.getElementById('modal3DDesc').innerText = dish.desc;
+      document.getElementById('modal3DAllergens').innerText = dish.allergens;
+
+      const priceVal = parseFloat(dish.price.replace('€','').replace(',','.'));
+      document.getElementById('modal3DAddBtn').onclick = function() {
+        addToCart(dish.title, priceVal);
+        closeModals();
+      };
+
+      document.getElementById('modal3D').classList.add('active');
+      render3DDish();
+    }
+
+    // Touch & Mouse Drag Rotation Controls
+    const container3D = document.getElementById('dish3DContainer');
+
+    container3D.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - lastMouseX;
+      const dy = e.clientY - lastMouseY;
+      rotY += dx * 0.9;
+      rotX = Math.max(10, Math.min(65, rotX + dy * 0.7));
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      render3DDish();
+    });
+
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    container3D.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        lastMouseX = e.touches[0].clientX;
+        lastMouseY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    container3D.addEventListener('touchmove', (e) => {
+      if (!isDragging || e.touches.length !== 1) return;
+      const dx = e.touches[0].clientX - lastMouseX;
+      const dy = e.touches[0].clientY - lastMouseY;
+      rotY += dx * 0.9;
+      rotX = Math.max(10, Math.min(65, rotX + dy * 0.7));
+      lastMouseX = e.touches[0].clientX;
+      lastMouseY = e.touches[0].clientY;
+      render3DDish();
+    }, { passive: true });
+
+    container3D.addEventListener('touchend', () => { isDragging = false; });
+
+    // Mathematical 3D projection & rendering
+    function render3DDish() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2 + 15;
+
+      const radX = (rotX * Math.PI) / 180;
+      const radY = (rotY * Math.PI) / 180;
+
+      // Project a 3D point (x, y, z) into 2D screen coordinates
+      function project(x, y, z) {
+        // Rotate around Y
+        const cosY = Math.cos(radY), sinY = Math.sin(radY);
+        const x1 = x * cosY - z * sinY;
+        const z1 = x * sinY + z * cosY;
+
+        // Rotate around X
+        const cosX = Math.cos(radX), sinX = Math.sin(radX);
+        const y2 = y * cosX - z1 * sinX;
+        const z2 = y * sinX + z1 * cosX;
+
+        // Perspective projection
+        const fov = 340;
+        const scale = fov / (fov + z2);
+        return {
+          x: cx + x1 * scale,
+          y: cy + y2 * scale,
+          z: z2,
+          scale: scale
+        };
+      }
+
+      // 1. Draw Plate Cast Shadow
+      ctx.beginPath();
+      ctx.ellipse(cx, cy + 50, 110, 42, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+      ctx.filter = 'blur(8px)';
+      ctx.fill();
+      ctx.filter = 'none';
+
+      // 2. Draw 3D Ceramic Plate Base & Rim
+      const plateRadius = 90;
+      const plateSteps = 36;
+      const rimPoints = [];
+      const basePoints = [];
+
+      for (let i = 0; i <= plateSteps; i++) {
+        const th = (i * 2 * Math.PI) / plateSteps;
+        const px = Math.cos(th) * plateRadius;
+        const pz = Math.sin(th) * plateRadius;
+        rimPoints.push(project(px, -6, pz));
+        basePoints.push(project(px * 0.7, 10, pz * 0.7));
+      }
+
+      // Outer rim
+      ctx.beginPath();
+      ctx.moveTo(rimPoints[0].x, rimPoints[0].y);
+      for (let i = 1; i < rimPoints.length; i++) {
+        ctx.lineTo(rimPoints[i].x, rimPoints[i].y);
+      }
+      ctx.closePath();
+      const rimGrad = ctx.createLinearGradient(cx - 80, cy - 40, cx + 80, cy + 40);
+      rimGrad.addColorStop(0, '#ECE7E1');
+      rimGrad.addColorStop(0.5, '#FAF7F3');
+      rimGrad.addColorStop(1, '#D8D0C5');
+      ctx.fillStyle = rimGrad;
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#C5BBAE';
+      ctx.stroke();
+
+      // Inner plate well
+      const innerPoints = [];
+      for (let i = 0; i <= plateSteps; i++) {
+        const th = (i * 2 * Math.PI) / plateSteps;
+        const px = Math.cos(th) * (plateRadius * 0.75);
+        const pz = Math.sin(th) * (plateRadius * 0.75);
+        innerPoints.push(project(px, 0, pz));
+      }
+
+      ctx.beginPath();
+      ctx.moveTo(innerPoints[0].x, innerPoints[0].y);
+      for (let i = 1; i < innerPoints.length; i++) {
+        ctx.lineTo(innerPoints[i].x, innerPoints[i].y);
+      }
+      ctx.closePath();
+      const wellGrad = ctx.createRadialGradient(cx, cy, 10, cx, cy, 70);
+      wellGrad.addColorStop(0, '#FFFFFF');
+      wellGrad.addColorStop(1, '#E4DCD3');
+      ctx.fillStyle = wellGrad;
+      ctx.fill();
+
+      // Golden Rim Lining
+      ctx.strokeStyle = 'rgba(201, 151, 56, 0.6)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // 3. Render Dish Food Elements in 3D according to dish type
+      if (current3DDishType === 'empanadas') {
+        // 3 Crispy Golden Folded Empanadas
+        const empanadaCoords = [
+          { x: -28, y: -18, z: -15, rot: 0.2 },
+          { x: 18, y: -18, z: -10, rot: -0.4 },
+          { x: -5, y: -26, z: 20, rot: 1.1 }
+        ];
+
+        empanadaCoords.forEach(pos => {
+          const pt = project(pos.x, pos.y, pos.z);
+          ctx.save();
+          ctx.translate(pt.x, pt.y);
+          ctx.rotate(pos.rot + (radY * 0.2));
+
+          // Golden crescent body
+          ctx.beginPath();
+          ctx.arc(0, 0, 24 * pt.scale, Math.PI * 0.9, Math.PI * 2.1);
+          ctx.closePath();
+          const goldGrad = ctx.createRadialGradient(-5, -6, 2, 0, 0, 26);
+          goldGrad.addColorStop(0, '#FFE082');
+          goldGrad.addColorStop(0.5, '#F59E0B');
+          goldGrad.addColorStop(1, '#B45309');
+          ctx.fillStyle = goldGrad;
+          ctx.fill();
+          ctx.strokeStyle = '#92400E';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Repulgue / Crimp border
+          for (let a = 0.9; a <= 2.1; a += 0.2) {
+            const rx = Math.cos(a * Math.PI) * 24 * pt.scale;
+            const ry = Math.sin(a * Math.PI) * 24 * pt.scale;
+            ctx.beginPath();
+            ctx.arc(rx, ry, 2.5 * pt.scale, 0, Math.PI * 2);
+            ctx.fillStyle = '#D97706';
+            ctx.fill();
+          }
+
+          // Sugar sparkles
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+          ctx.fillRect(-6 * pt.scale, -4 * pt.scale, 2, 2);
+          ctx.fillRect(4 * pt.scale, -8 * pt.scale, 2, 2);
+          ctx.fillRect(8 * pt.scale, 2 * pt.scale, 2, 2);
+          ctx.restore();
+        });
+
+      } else if (current3DDishType === 'ceviche') {
+        // Zesty Orange-Lime Broth Surface
+        ctx.beginPath();
+        for (let i = 0; i <= 24; i++) {
+          const th = (i * 2 * Math.PI) / 24;
+          const pt = project(Math.cos(th) * 52, -4, Math.sin(th) * 52);
+          if (i === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+        }
+        ctx.closePath();
+        const brothGrad = ctx.createRadialGradient(cx, cy - 4, 10, cx, cy - 4, 55);
+        brothGrad.addColorStop(0, 'rgba(235, 94, 40, 0.9)');
+        brothGrad.addColorStop(1, 'rgba(180, 50, 20, 0.85)');
+        ctx.fillStyle = brothGrad;
+        ctx.fill();
+
+        // Plump Pink Prawns / Camarones
+        const shrimpCoords = [
+          { x: -18, y: -10, z: -10 },
+          { x: 14, y: -10, z: -14 },
+          { x: 20, y: -10, z: 12 },
+          { x: -14, y: -10, z: 16 },
+          { x: 0, y: -14, z: 0 }
+        ];
+
+        shrimpCoords.forEach(pos => {
+          const pt = project(pos.x, pos.y, pos.z);
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 11 * pt.scale, 0.2, Math.PI * 1.6);
+          ctx.strokeStyle = '#FF6B6B';
+          ctx.lineWidth = 5 * pt.scale;
+          ctx.lineCap = 'round';
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 8 * pt.scale, 0.4, Math.PI * 1.4);
+          ctx.strokeStyle = '#FFFFFF';
+          ctx.lineWidth = 2 * pt.scale;
+          ctx.stroke();
+        });
+
+        // Purple Onions & Green Cilantro Garnish
+        for (let i = 0; i < 7; i++) {
+          const ox = Math.sin(i * 1.2) * 22;
+          const oz = Math.cos(i * 1.2) * 22;
+          const pt = project(ox, -14, oz);
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 7 * pt.scale, 0, Math.PI);
+          ctx.strokeStyle = '#7B2CBF';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          ctx.fillStyle = '#2D6A4F';
+          ctx.fillRect(pt.x + 4, pt.y - 4, 3, 3);
+        }
+
+      } else {
+        // Generic Traditional Platter (Seco / Hornado / Bolón)
+        // Golden Savory Rice / Verde Mound
+        const centerPt = project(0, -18, 0);
+        ctx.beginPath();
+        ctx.arc(centerPt.x, centerPt.y, 32 * centerPt.scale, 0, Math.PI * 2);
+        const moundGrad = ctx.createRadialGradient(centerPt.x - 8, centerPt.y - 8, 4, centerPt.x, centerPt.y, 34);
+        moundGrad.addColorStop(0, '#F59E0B');
+        moundGrad.addColorStop(1, '#B45309');
+        ctx.fillStyle = moundGrad;
+        ctx.fill();
+
+        // Savory Meat / Guiso chunks
+        const meatCoords = [{ x: -26, z: 12 }, { x: 24, z: 10 }, { x: -8, z: -24 }];
+        meatCoords.forEach(pos => {
+          const pt = project(pos.x, -14, pos.z);
+          ctx.beginPath();
+          ctx.ellipse(pt.x, pt.y, 14 * pt.scale, 9 * pt.scale, 0.3, 0, Math.PI * 2);
+          ctx.fillStyle = '#78350F';
+          ctx.fill();
+        });
+
+        // Maduro Frito (Sweet Fried Plantain Slice)
+        const plantainPt = project(18, -16, -18);
+        ctx.save();
+        ctx.translate(plantainPt.x, plantainPt.y);
+        ctx.rotate(0.5);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 18 * plantainPt.scale, 6 * plantainPt.scale, 0, 0, Math.PI * 2);
+        ctx.fillStyle = '#D97706';
+        ctx.fill();
+        ctx.strokeStyle = '#451A03';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+  </script>
+</body>
+</html>
